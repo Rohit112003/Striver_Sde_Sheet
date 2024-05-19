@@ -3,17 +3,22 @@ package Recursion;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class mergeSort {
+public class MergeSort {
     public static void main(String[] args) {
-        int arr[] = {3,2,4,1,9,8};
-        mergesorting(arr,0 ,arr.length);
+        int arr[] = {3,1,2,4,1,5,2,6,4};
+        int low=0;
+        int high = arr.length-1;
+        mergeSort(arr,low,high);
+        System.out.println(Arrays.toString(arr));
     }
 
-    private static void mergesorting(int[] arr, int low,  int high) {
-        if(low>=high) return;
+    private static void mergeSort(int[] arr, int low, int high) {
+        if(low>=high){
+            return;
+        }
         int mid = (low+high)/2;
-        mergesorting(arr,low,mid);
-        mergesorting(arr,mid+1,high);
+        mergeSort(arr, low,mid);
+        mergeSort(arr,mid+1,high);
         merge(arr,low,mid,high);
     }
 
@@ -22,7 +27,7 @@ public class mergeSort {
         int left = low;
         int right = mid+1;
         while(left<=mid && right<=high){
-            if(arr[left]<=arr[right]){
+            if(arr[left]<arr[right]){
                 list.add(arr[left]);
                 left++;
             }else{
@@ -38,14 +43,8 @@ public class mergeSort {
             list.add(arr[right]);
             right++;
         }
-        int index = low;
-        for (int num : list) {
-            arr[index] = num;
-            index++;
+        for(int i = low; i<=high ; i++){
+            arr[i] = list.get(i-low);
         }
-        System.out.println(Arrays.toString(arr));
-
-
     }
-
 }
